@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Ello Blind Photo Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #2563eb;
+    --blue-700: #1d4ed8;
+    --blue-50: #eff6ff;
+    --blue-100: #dbeafe;
+    --stone-50: #f8f7f4;
+    --stone-100: #f1f0ed;
+    --stone-200: #e7e5e1;
+    --ink: #1c1917;
+    --muted: #6b7280;
+    --line: #e5e7eb;
+    --card: #ffffff;
+    --ok: #15803d;
+    --serif: "Playfair Display", Georgia, serif;
+    --sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--stone-50); color: var(--ink); font: 16px/1.5 var(--sans); -webkit-text-size-adjust: 100%; }
+  button { font: inherit; color: inherit; }
+  [hidden] { display: none !important; }
+
+  .nav { display: flex; align-items: center; justify-content: space-between; max-width: 1240px; margin: 0 auto; padding: 14px 16px; }
+  .wordmark { font: 600 26px/1 var(--serif); letter-spacing: -0.01em; color: var(--ink); }
+  .wordmark b { color: var(--blue); font-weight: 600; }
+  .nav-tag { font-size: 13px; color: var(--muted); border: 1px solid var(--line); background: var(--card); padding: 5px 11px; border-radius: 999px; }
+
+  main { max-width: 1240px; margin: 0 auto; padding: 0 16px 48px; }
+  .narrow { max-width: 620px; margin: 0 auto; }
+  h1 { font: 600 34px/1.12 var(--serif); letter-spacing: -0.015em; margin: 18px 0 12px; }
+  h1 em, h2 em { color: var(--blue); }
+  .lede { font-size: 17px; color: #44403c; margin: 0 0 22px; }
+  .muted { color: var(--muted); font-size: 14px; }
+
+  .steps { display: grid; gap: 10px; margin: 0 0 22px; padding: 0; list-style: none; }
+  .steps li { display: flex; gap: 12px; align-items: flex-start; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
+  .steps .n { flex: none; width: 28px; height: 28px; border-radius: 999px; background: var(--blue-50); color: var(--blue); font-weight: 600; display: grid; place-items: center; font-size: 14px; }
+  .steps b { display: block; font-weight: 600; }
+  .steps span { color: var(--muted); font-size: 14px; }
+
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 12px; }
+  .card h3 { font-size: 15px; font-weight: 600; margin: 0 0 10px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 8px 14px; font-size: 15px; cursor: pointer; }
+  .chip[aria-pressed="true"] { background: var(--blue-50); border-color: var(--blue); color: var(--blue-700); font-weight: 600; }
+  .fine { font-size: 13px; color: var(--muted); margin: 14px 2px 18px; }
+
+  .btn { display: block; width: 100%; border: 0; border-radius: 12px; padding: 15px 18px; background: var(--blue); color: #fff; font-weight: 600; font-size: 17px; cursor: pointer; }
+  .btn:hover { background: var(--blue-700); }
+  .btn[disabled] { background: var(--stone-200); color: #a8a29e; cursor: default; }
+  .btn.ghost { background: var(--card); color: var(--ink); border: 1px solid var(--line); }
+
+  /* Pair screen */
+  .progress { display: flex; align-items: center; gap: 12px; margin: 4px 0 12px; }
+  .bar { flex: 1; height: 6px; background: var(--stone-200); border-radius: 999px; overflow: hidden; }
+  .bar > i { display: block; height: 100%; width: 0; background: var(--blue); transition: width .3s; }
+  .count { font-size: 14px; color: var(--muted); white-space: nowrap; }
+
+  .context { display: flex; align-items: center; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 10px; margin-bottom: 12px; }
+  .thumb { flex: none; width: 64px; text-align: center; border: 0; background: none; padding: 0; cursor: zoom-in; }
+  .thumb img { width: 64px; height: 80px; object-fit: contain; background: var(--stone-100); border-radius: 8px; display: block; }
+  .thumb small { display: block; font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .context p { margin: 0; font-size: 14px; color: #44403c; }
+
+  .ask { text-align: center; margin: 4px 0 12px; }
+  .ask .step { font-size: 13px; font-weight: 600; color: var(--blue); letter-spacing: .02em; text-transform: uppercase; }
+  .ask h2 { font: 600 24px/1.2 var(--serif); margin: 4px 0 4px; }
+  .ask .how { font-size: 14px; color: var(--muted); }
+
+  .results { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .res { position: relative; border: 3px solid transparent; border-radius: 16px; background: var(--stone-100); overflow: hidden; cursor: pointer; padding: 0;
+         aspect-ratio: 3 / 4; transition: border-color .15s, box-shadow .15s; }
+  .res img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .res:hover { border-color: var(--blue-100); }
+  .res.picked { border-color: var(--blue); box-shadow: 0 0 0 4px var(--blue-100); }
+  .badges { position: absolute; left: 8px; top: 8px; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; pointer-events: none; }
+  .badge { background: var(--blue); color: #fff; font-size: 12px; font-weight: 600; padding: 5px 9px 5px 7px; border-radius: 999px; display: flex; gap: 5px; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,.2); }
+  .badge.dim { background: rgba(28,25,23,.78); }
+  .zoom-btn { position: absolute; right: 8px; bottom: 8px; width: 42px; height: 42px; border-radius: 999px; border: 0; background: rgba(255,255,255,.94);
+              box-shadow: 0 1px 4px rgba(0,0,0,.25); display: grid; place-items: center; cursor: zoom-in; }
+  .zoom-btn svg { width: 20px; height: 20px; }
+
+  .col { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+  .pick-btn { border: 2px solid var(--blue); background: var(--card); color: var(--blue-700); border-radius: 12px; padding: 12px 8px;
+              font-weight: 600; font-size: 15px; cursor: pointer; line-height: 1.2; }
+  .pick-btn:hover { background: var(--blue-50); }
+  .pick-btn[aria-pressed="true"] { background: var(--blue); color: #fff; }
+  .answers { display: flex; justify-content: center; align-items: center; gap: 8px; margin: 16px 0 6px; }
+  .ans { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--card); border-radius: 999px;
+         padding: 6px 12px 6px 6px; font-size: 13px; cursor: pointer; color: var(--muted); }
+  .ans .num { width: 20px; height: 20px; border-radius: 999px; background: var(--stone-200); color: var(--ink); display: grid; place-items: center; font-size: 12px; font-weight: 600; }
+  .ans.active { border-color: var(--blue); color: var(--blue-700); background: var(--blue-50); font-weight: 600; }
+  .ans.active .num { background: var(--blue); color: #fff; }
+  .ans.done .num { background: var(--ok); color: #fff; font-size: 0; }
+  .ans.done .num::after { content: "✓"; font-size: 12px; }
+  .ans-line { width: 18px; height: 2px; background: var(--stone-200); }
+  .all-set { text-align: center; font-size: 13px; color: var(--muted); margin: 4px 0 10px; }
+  .next-wrap { max-width: 420px; margin: 0 auto; }
+
+  @media (min-width: 820px) {
+    h1 { font-size: 44px; }
+    .results { gap: 18px; }
+    .res { aspect-ratio: auto; height: max(480px, calc(100vh - 340px)); }
+    .pair-head { display: grid; grid-template-columns: minmax(0, 420px) 1fr; gap: 24px; align-items: center; margin-bottom: 14px; }
+    .context { margin: 0; }
+    .ask { text-align: left; margin: 0; }
+    .thumb { width: 80px; } .thumb img { width: 80px; height: 100px; }
+    .ask h2 { font-size: 30px; }
+  }
+
+  /* Zoom viewer */
+  .zv { position: fixed; inset: 0; z-index: 20; background: #0c0a09; display: flex; flex-direction: column; }
+  .zv-top { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; color: #e7e5e4; font-size: 14px; }
+  .zv-close { width: 44px; height: 44px; border: 0; border-radius: 999px; background: rgba(255,255,255,.12); color: #fff; font-size: 26px; line-height: 1; cursor: pointer; }
+  .zv-stage { position: relative; flex: 1; overflow: hidden; touch-action: none; cursor: grab; }
+  .zv-stage.dragging { cursor: grabbing; }
+  .zv-stage img { position: absolute; left: 50%; top: 50%; max-width: 100%; max-height: 100%; transform-origin: 0 0; user-select: none; -webkit-user-drag: none; }
+  .zv-bottom { display: flex; gap: 10px; align-items: center; justify-content: center; padding: 12px 12px calc(12px + env(safe-area-inset-bottom)); flex-wrap: wrap; }
+  .seg { display: inline-flex; background: rgba(255,255,255,.1); border-radius: 999px; padding: 4px; }
+  .seg button { border: 0; background: transparent; color: #e7e5e4; padding: 9px 16px; border-radius: 999px; cursor: pointer; font-weight: 500; }
+  .seg button[aria-pressed="true"] { background: #fff; color: var(--ink); }
+  .zv-pick { border: 0; background: var(--blue); color: #fff; padding: 11px 18px; border-radius: 999px; font-weight: 600; cursor: pointer; }
+  .zv-pick[hidden] { display: none; }
+
+  .test-banner { background: #fef3c7; border-bottom: 1px solid #fcd34d; color: #78350f; font-size: 13px; text-align: center; padding: 7px 12px; }
+  .center { text-align: center; }
+  .big-check { width: 64px; height: 64px; border-radius: 999px; background: var(--blue-50); color: var(--blue); display: grid; place-items: center; margin: 32px auto 8px; font-size: 32px; }
+</style>
+</head>
+<body>
+<div id="test-banner" class="test-banner" hidden>Test mode: picks are not being saved.</div>
+<header class="nav">
+  <div class="wordmark">ello<b>.</b></div>
+  <div class="nav-tag">Blind photo test</div>
+</header>
+
+<main>
+  <!-- Intro -->
+  <section id="intro" class="narrow">
+    <h1>Which try-on looks <em>real</em>?</h1>
+    <p class="lede">AI can now show how clothes look on a real person. Help us find out which tool does it best. It takes about 2 minutes.</p>
+    <ol class="steps">
+      <li><div class="n">1</div><div><b>You'll see <span id="n-pairs">10</span> pairs of photos</b><span>Each pair is the same person in the same product, made by two different AI tools.</span></div></li>
+      <li><div class="n">2</div><div><b>Tap the photo that looks more real</b><span>Then tap the one that looks better overall. It can be the same photo.</span></div></li>
+      <li><div class="n">3</div><div><b>Zoom in as much as you like</b><span>Use the magnifier to check faces, fabric and fine detail.</span></div></li>
+    </ol>
+    <div class="card">
+      <h3>How often do you buy clothes online? <span class="muted">(optional)</span></h3>
+      <div class="chips" data-field="shops">
+        <button class="chip" data-v="often">Often</button>
+        <button class="chip" data-v="sometimes">Sometimes</button>
+        <button class="chip" data-v="rarely">Rarely or never</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Your age <span class="muted">(optional)</span></h3>
+      <div class="chips" data-field="age">
+        <button class="chip" data-v="u18">Under 18</button>
+        <button class="chip" data-v="18-24">18 to 24</button>
+        <button class="chip" data-v="25-34">25 to 34</button>
+        <button class="chip" data-v="35-44">35 to 44</button>
+        <button class="chip" data-v="45+">45+</button>
+      </div>
+    </div>
+    <p class="fine">This test is run by Ello. In each pair, one photo is from Ello and one is from another AI try-on tool. They're shuffled, so you won't know which is which. It's anonymous: we save only your picks and the two optional answers above.</p>
+    <button id="start" class="btn">Start the test</button>
+  </section>
+
+  <!-- One pair -->
+  <section id="pair" hidden>
+    <div class="progress"><div class="bar"><i id="bar"></i></div><div class="count" id="count">Look 1 of 10</div></div>
+    <div class="pair-head">
+    <div class="context">
+      <button class="thumb" data-zoom="person"><img id="in-person" alt="The person's original photo"><small>Person</small></button>
+      <button class="thumb" data-zoom="product"><img id="in-product" alt="The product"><small>Product</small></button>
+      <p>Both photos below are AI try-ons of this person wearing this product.</p>
+    </div>
+    <div class="ask">
+      <div class="step" id="ask-step">Question 1 of 2</div>
+      <h2 id="ask-title">Which looks more like a <em>real photo</em>?</h2>
+      <div class="how">Tap a photo to choose it. Use <span aria-hidden="true">🔍</span> to look closer.</div>
+    </div>
+    </div>
+    <div class="results">
+      <div class="col">
+        <div class="res" data-side="L" role="button" tabindex="0" aria-label="Choose the left photo">
+          <img id="img-L" alt="Left photo"><div class="badges" id="badges-L"></div>
+          <button class="zoom-btn" data-zoom="L" aria-label="Zoom into the left photo"><svg viewBox="0 0 24 24" fill="none" stroke="#1c1917" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21M10.5 7.5v6M7.5 10.5h6"/></svg></button>
+        </div>
+        <button class="pick-btn" data-side="L"></button>
+      </div>
+      <div class="col">
+        <div class="res" data-side="R" role="button" tabindex="0" aria-label="Choose the right photo">
+          <img id="img-R" alt="Right photo"><div class="badges" id="badges-R"></div>
+          <button class="zoom-btn" data-zoom="R" aria-label="Zoom into the right photo"><svg viewBox="0 0 24 24" fill="none" stroke="#1c1917" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21M10.5 7.5v6M7.5 10.5h6"/></svg></button>
+        </div>
+        <button class="pick-btn" data-side="R"></button>
+      </div>
+    </div>
+    <div class="answers">
+      <button class="ans active" data-q="real"><span class="num">1</span> More real</button>
+      <span class="ans-line"></span>
+      <button class="ans" data-q="overall"><span class="num">2</span> Looks better</button>
+    </div>
+    <p class="all-set" id="all-set" hidden>Both picked. Tap a step above to change one.</p>
+    <div class="next-wrap"><button id="next" class="btn" disabled>Next look</button></div>
+  </section>
+
+  <!-- Done -->
+  <section id="done" class="narrow center" hidden>
+    <div class="big-check">✓</div>
+    <h1>Thank <em>you</em>!</h1>
+    <p id="save-state" class="muted">Saving your picks…</p>
+    <button id="retry" class="btn ghost" hidden>Try saving again</button>
+    <div class="card" style="text-align:left;margin-top:22px">
+      <p style="margin-top:0">Know someone who shops for clothes online? More people means a fairer result.</p>
+      <button id="share" class="btn ghost">Share the test</button>
+    </div>
+  </section>
+
+  <section id="already" class="narrow center" hidden>
+    <div class="big-check">✓</div>
+    <h1>You've already <em>done</em> this one</h1>
+    <p class="muted">Thanks for helping. Each person takes the test once.</p>
+  </section>
+
+  <section id="not-ready" class="narrow center" hidden>
+    <h1>Not open <em>yet</em></h1>
+    <p class="muted">This test isn't ready. Check back soon.</p>
+  </section>
+</main>
+
+<!-- Zoom viewer -->
+<div class="zv" id="zv" role="dialog" aria-modal="true" aria-label="Zoomed photo" hidden>
+  <div class="zv-top"><span id="zv-hint">Pinch or double-tap to zoom. Drag to move.</span><button class="zv-close" id="zv-close" aria-label="Close">×</button></div>
+  <div class="zv-stage" id="zv-stage"><img id="zv-img" alt="" draggable="false"></div>
+  <div class="zv-bottom">
+    <div class="seg" id="zv-seg"><button data-side="L">Left photo</button><button data-side="R">Right photo</button></div>
+    <button class="zv-pick" id="zv-pick">Choose this photo</button>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="pairs.js"></script>
+<script>
+(function () {
+  "use strict";
+  var cfg = window.SURVEY_CONFIG || {};
+  var STUDY = window.STUDY || "gl1";
+  var PAIRS = window.PAIRS || [];
+  var live = !!(cfg.url && cfg.key);
+  var $ = function (id) { return document.getElementById(id); };
+  var QUESTIONS = {
+    real: { step: "Question 1 of 2", title: 'Which looks more like a <em>real photo</em>?', badge: "More real", button: "This looks more real" },
+    overall: { step: "Question 2 of 2", title: 'Which one looks <em>better</em> overall?', badge: "Looks better", button: "This looks better" }
+  };
+
+  function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+  function rand(n) { var a = new Uint32Array(1); crypto.getRandomValues(a); return a[0] % n; }
+  function shuffle(arr) { var a = arr.slice(); for (var i = a.length - 1; i > 0; i--) { var j = rand(i + 1); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function uid() { return crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + "-" + rand(1e9); }
+  function stem(path) { return path.split("/").pop().replace(/\.[^.]+$/, ""); }
+
+  var params = new URLSearchParams(location.search);
+  var src = (params.get("s") || "direct").replace(/[^\w-]/g, "").slice(0, 30) || "direct";
+  var device = matchMedia("(max-width: 700px), (pointer: coarse)").matches ? "phone" : "desktop";
+  var K_RATER = "ps_rater_" + STUDY, K_DONE = "ps_done_" + STUDY, K_QUEUE = "ps_queue_" + STUDY;
+  var rater = store(K_RATER);
+  if (!rater) { rater = uid(); store(K_RATER, rater); }
+  var session = uid();
+
+  $("test-banner").hidden = live;
+  $("n-pairs").textContent = PAIRS.length + 1;
+  if (!PAIRS.length) { $("intro").hidden = true; $("not-ready").hidden = false; return; }
+  if (store(K_DONE) === "1" && !params.has("again")) { $("intro").hidden = true; $("already").hidden = false; return; }
+
+  var profile = { shops: null, age: null };
+  document.querySelectorAll(".chips").forEach(function (group) {
+    group.addEventListener("click", function (e) {
+      var b = e.target.closest(".chip"); if (!b) return;
+      var on = b.getAttribute("aria-pressed") !== "true";
+      group.querySelectorAll(".chip").forEach(function (c) { c.setAttribute("aria-pressed", "false"); });
+      if (on) b.setAttribute("aria-pressed", "true");
+      profile[group.dataset.field] = on ? b.dataset.v : null;
+    });
+  });
+
+  // Saving: queue kept in localStorage so a dropped connection retries later
+  var queue = [];
+  try { queue = JSON.parse(store(K_QUEUE) || "[]"); } catch (e) { queue = []; }
+  var flushing = null;
+  function saveQueue() { store(K_QUEUE, JSON.stringify(queue)); }
+  function send(row) { queue.push(row); saveQueue(); return flush(); }
+  function flush() {
+    if (!live) { if (queue.length) console.log("[test mode] would save", queue); queue = []; saveQueue(); return Promise.resolve(true); }
+    if (flushing) return flushing;
+    flushing = (async function () {
+      while (queue.length) {
+        var headers = { "apikey": cfg.key, "Content-Type": "application/json", "Prefer": "return=minimal" };
+        if (/^eyJ/.test(cfg.key)) headers["Authorization"] = "Bearer " + cfg.key;
+        try {
+          var res = await fetch(cfg.url.replace(/\/$/, "") + "/rest/v1/" + (cfg.table || "blind_votes"),
+            { method: "POST", headers: headers, body: JSON.stringify(queue[0]), keepalive: true });
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          queue.shift(); saveQueue();
+        } catch (e) { flushing = null; return false; }
+      }
+      flushing = null; return true;
+    })();
+    return flushing;
+  }
+  flush();
+
+  // Survey state
+  // One look from the first half comes back at the end with its sides swapped: a consistency check.
+  var order = shuffle(PAIRS);
+  var again = order[rand(Math.max(1, Math.floor(order.length / 2)))];
+  order.push({ id: again.id + "r", repeatOf: again.id, person: again.person, product: again.product, options: again.options });
+  var shownFlip = {};
+  var i = 0, cur = null, shownAt = 0, picks = {}, times = {}, q = "real", advanceTimer = null;
+
+  function preload(p) { if (!p) return; [p.person, p.product].concat(p.options).forEach(function (u) { var im = new Image(); im.src = u; }); }
+
+  function setQuestion(name) {
+    q = name;
+    $("ask-step").textContent = QUESTIONS[q].step;
+    $("ask-title").innerHTML = QUESTIONS[q].title;
+    document.querySelectorAll(".ans").forEach(function (b) { b.classList.toggle("active", b.dataset.q === q); });
+    $("zv-pick").textContent = "Choose for: " + QUESTIONS[q].badge;
+  }
+
+  function paint() {
+    // Only the current question's choice is highlighted, so it's always clear what a tap means.
+    ["L", "R"].forEach(function (side) {
+      var on = picks[q] === side;
+      document.querySelector('.res[data-side="' + side + '"]').classList.toggle("picked", on);
+      $("badges-" + side).innerHTML = on ? '<span class="badge">✓ ' + QUESTIONS[q].badge + "</span>" : "";
+      var btn = document.querySelector('.pick-btn[data-side="' + side + '"]');
+      btn.textContent = (on ? "✓ " : "") + QUESTIONS[q].button;
+      btn.setAttribute("aria-pressed", String(on));
+    });
+    document.querySelectorAll(".ans").forEach(function (b) { b.classList.toggle("done", !!picks[b.dataset.q] && b.dataset.q !== q); });
+    var both = !!(picks.real && picks.overall);
+    $("all-set").hidden = !both;
+    $("next").disabled = !both;
+  }
+
+  function choose(side) {
+    clearTimeout(advanceTimer);
+    picks[q] = side;
+    times[q] = Math.round(performance.now() - shownAt);
+    paint();
+    if (q === "real" && !picks.overall) {
+      advanceTimer = setTimeout(function () { setQuestion("overall"); paint(); }, 450);
+    }
+  }
+
+  function showPair() {
+    var p = order[i];
+    var flip = p.repeatOf ? !shownFlip[p.repeatOf] : rand(2) === 1;
+    shownFlip[p.id] = flip;
+    cur = { p: p, L: flip ? p.options[1] : p.options[0], R: flip ? p.options[0] : p.options[1] };
+    picks = { real: null, overall: null }; times = { real: null, overall: null };
+    $("in-person").src = p.person; $("in-product").src = p.product;
+    $("img-L").src = cur.L; $("img-R").src = cur.R;
+    setQuestion("real"); paint();
+    $("next").textContent = i === order.length - 1 ? "Finish" : "Next look";
+    $("count").textContent = "Look " + (i + 1) + " of " + order.length;
+    $("bar").style.width = (i / order.length * 100) + "%";
+    shownAt = performance.now();
+    window.scrollTo(0, 0);
+    preload(order[i + 1]);
+  }
+
+  document.querySelectorAll(".res").forEach(function (el) {
+    el.addEventListener("click", function (e) { if (e.target.closest(".zoom-btn")) return; choose(el.dataset.side); });
+    el.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); choose(el.dataset.side); } });
+  });
+  document.querySelectorAll(".pick-btn").forEach(function (b) {
+    b.addEventListener("click", function () { choose(b.dataset.side); });
+  });
+  document.querySelectorAll(".ans").forEach(function (b) {
+    b.addEventListener("click", function () { clearTimeout(advanceTimer); setQuestion(b.dataset.q); paint(); });
+  });
+
+  $("start").addEventListener("click", function () {
+    $("intro").hidden = true; $("pair").hidden = false;
+    showPair();
+  });
+
+  $("next").addEventListener("click", function () {
+    if (!(picks.real && picks.overall)) return;
+    send({
+      study: STUDY, rater: rater, session: session, src: src, pair: cur.p.id, seq: i,
+      left_img: stem(cur.L), right_img: stem(cur.R),
+      real_pick: stem(cur[picks.real]), overall_pick: stem(cur[picks.overall]),
+      ms_real: times.real, ms_overall: times.overall,
+      age: profile.age, shops: profile.shops, device: device
+    });
+    i++;
+    if (i < order.length) { showPair(); return; }
+    $("bar").style.width = "100%";
+    $("pair").hidden = true; $("done").hidden = false;
+    store(K_DONE, "1");
+    finishSave();
+  });
+
+  function finishSave() {
+    $("save-state").textContent = "Saving your picks…"; $("retry").hidden = true;
+    flush().then(function (ok) {
+      if (ok && !queue.length) $("save-state").textContent = live ? "Your picks are saved." : "Test mode: nothing was saved.";
+      else { $("save-state").textContent = "We couldn't save your picks yet. Check your connection and try again."; $("retry").hidden = false; }
+    });
+  }
+  $("retry").addEventListener("click", finishSave);
+
+  $("share").addEventListener("click", function () {
+    var url = location.origin + location.pathname + "?s=" + encodeURIComponent((src + "-fwd").slice(0, 30));
+    var data = { title: "Which try-on looks real?", text: "A 2 minute blind photo test: pick which AI try-on photo looks more real.", url: url };
+    if (navigator.share) { navigator.share(data).catch(function () {}); return; }
+    (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(
+      function () { $("share").textContent = "Link copied"; },
+      function () { prompt("Copy this link:", url); });
+  });
+
+  // Zoom viewer: pinch, double-tap, wheel and drag. Switching photos keeps the same zoom and spot.
+  var zv = $("zv"), stage = $("zv-stage"), zimg = $("zv-img");
+  var zs = { s: 1, x: 0, y: 0 }, zside = null, pointers = new Map(), pinch = null, lastTap = 0, base = { w: 0, h: 0 };
+
+  function layoutBase() {
+    var sw = stage.clientWidth, sh = stage.clientHeight, nw = zimg.naturalWidth || 1, nh = zimg.naturalHeight || 1;
+    var k = Math.min(sw / nw, sh / nh);
+    base = { w: nw * k, h: nh * k };
+    zimg.style.width = base.w + "px"; zimg.style.height = base.h + "px";
+    zimg.style.maxWidth = "none"; zimg.style.maxHeight = "none";
+    zimg.style.left = (sw - base.w) / 2 + "px"; zimg.style.top = (sh - base.h) / 2 + "px";
+  }
+  function clamp() {
+    var mx = Math.max(0, (base.w * zs.s - base.w) / 2 + 0), my = Math.max(0, (base.h * zs.s - base.h) / 2);
+    // keep the zoomed image covering its own box
+    zs.x = Math.min(0, Math.max(base.w - base.w * zs.s, zs.x));
+    zs.y = Math.min(0, Math.max(base.h - base.h * zs.s, zs.y));
+    if (zs.s <= 1) { zs.s = 1; zs.x = 0; zs.y = 0; }
+    return mx + my;
+  }
+  function apply() { clamp(); zimg.style.transform = "translate(" + zs.x + "px," + zs.y + "px) scale(" + zs.s + ")"; }
+  function zoomAt(newS, cx, cy) {
+    // cx, cy relative to the image box's top-left
+    newS = Math.max(1, Math.min(6, newS));
+    var r = newS / zs.s;
+    zs.x = cx - (cx - zs.x) * r; zs.y = cy - (cy - zs.y) * r; zs.s = newS; apply();
+  }
+  function boxPoint(e) { var b = zimg.getBoundingClientRect(); return { x: e.clientX - b.left + zs.x, y: e.clientY - b.top + zs.y }; }
+
+  function openZoom(which) {
+    zside = which;
+    var srcUrl = which === "L" || which === "R" ? cur[which] : cur.p[which];
+    var isResult = which === "L" || which === "R";
+    zv.hidden = false; document.body.style.overflow = "hidden";
+    $("zv-seg").hidden = !isResult; $("zv-pick").hidden = !isResult;
+    $("zv-seg").querySelectorAll("button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.side === which)); });
+    $("zv-hint").textContent = device === "phone" ? "Pinch or double-tap to zoom. Drag to move." : "Scroll or double-click to zoom. Drag to move.";
+    var keep = { s: zs.s, x: zs.x, y: zs.y };
+    zimg.onload = function () { layoutBase(); apply(); };
+    zimg.src = srcUrl;
+    if (!isResult) keep = { s: 1, x: 0, y: 0 };
+    zs = keep;
+    if (zimg.complete && zimg.naturalWidth) { layoutBase(); apply(); }
+  }
+  function closeZoom() { zv.hidden = true; document.body.style.overflow = ""; zs = { s: 1, x: 0, y: 0 }; }
+
+  document.querySelectorAll("[data-zoom]").forEach(function (b) {
+    b.addEventListener("click", function (e) { e.stopPropagation(); zs = { s: 1, x: 0, y: 0 }; openZoom(b.dataset.zoom); });
+  });
+  $("zv-seg").querySelectorAll("button").forEach(function (b) { b.addEventListener("click", function () { openZoom(b.dataset.side); }); });
+  $("zv-pick").addEventListener("click", function () { var side = zside; closeZoom(); choose(side); });
+  $("zv-close").addEventListener("click", closeZoom);
+  document.addEventListener("keydown", function (e) { if (!zv.hidden && e.key === "Escape") closeZoom(); });
+  window.addEventListener("resize", function () { if (!zv.hidden) { layoutBase(); apply(); } });
+
+  stage.addEventListener("wheel", function (e) {
+    e.preventDefault(); var p = boxPoint(e); zoomAt(zs.s * Math.exp(-e.deltaY * 0.0022), p.x, p.y);
+  }, { passive: false });
+  stage.addEventListener("dblclick", function (e) { var p = boxPoint(e); zoomAt(zs.s > 1.2 ? 1 : 2.5, p.x, p.y); });
+  stage.addEventListener("pointerdown", function (e) {
+    stage.setPointerCapture(e.pointerId);
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size === 2) {
+      var pts = Array.from(pointers.values());
+      pinch = { d: Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y), s: zs.s };
+    } else if (e.pointerType === "touch") {
+      var now = Date.now();
+      if (now - lastTap < 300) { var p = boxPoint(e); zoomAt(zs.s > 1.2 ? 1 : 2.5, p.x, p.y); lastTap = 0; } else lastTap = now;
+    }
+    stage.classList.add("dragging");
+  });
+  stage.addEventListener("pointermove", function (e) {
+    if (!pointers.has(e.pointerId)) return;
+    var prev = pointers.get(e.pointerId);
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size === 2 && pinch) {
+      var pts = Array.from(pointers.values());
+      var d = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+      var b = zimg.getBoundingClientRect();
+      var mid = { x: (pts[0].x + pts[1].x) / 2 - b.left + zs.x, y: (pts[0].y + pts[1].y) / 2 - b.top + zs.y };
+      zoomAt(pinch.s * d / pinch.d, mid.x, mid.y);
+    } else if (pointers.size === 1) {
+      zs.x += e.clientX - prev.x; zs.y += e.clientY - prev.y; apply();
+    }
+  });
+  function endPointer(e) { pointers.delete(e.pointerId); if (pointers.size < 2) pinch = null; if (!pointers.size) stage.classList.remove("dragging"); }
+  stage.addEventListener("pointerup", endPointer);
+  stage.addEventListener("pointercancel", endPointer);
+})();
+</script>
+</body>
+</html>
