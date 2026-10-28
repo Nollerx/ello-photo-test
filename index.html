@@ -251,8 +251,8 @@
   </div>
 </div>
 
-<script src="config.js"></script>
-<script src="pairs.js"></script>
+<script src="config.js?v=20261028c"></script>
+<script src="pairs.js?v=20261028c"></script>
 <script>
 (function () {
   "use strict";
@@ -305,18 +305,24 @@
   function flush() {
     if (!live) { if (queue.length) console.log("[test mode] would save", queue); queue = []; saveQueue(); return Promise.resolve(true); }
     if (flushing) return flushing;
+    if (!queue.length) return Promise.resolve(true);
     flushing = (async function () {
-      while (queue.length) {
-        var headers = { "apikey": cfg.key, "Content-Type": "application/json", "Prefer": "return=minimal" };
-        if (/^eyJ/.test(cfg.key)) headers["Authorization"] = "Bearer " + cfg.key;
-        try {
+      await null; // let the assignment above finish before the finally below clears it
+      try {
+        while (queue.length) {
+          var headers = { "apikey": cfg.key, "Content-Type": "application/json", "Prefer": "return=minimal" };
+          if (/^eyJ/.test(cfg.key)) headers["Authorization"] = "Bearer " + cfg.key;
           var res = await fetch(cfg.url.replace(/\/$/, "") + "/rest/v1/" + (cfg.table || "blind_votes"),
             { method: "POST", headers: headers, body: JSON.stringify(queue[0]), keepalive: true });
           if (!res.ok) throw new Error("HTTP " + res.status);
           queue.shift(); saveQueue();
-        } catch (e) { flushing = null; return false; }
+        }
+        return true;
+      } catch (e) {
+        return false;
+      } finally {
+        flushing = null;
       }
-      flushing = null; return true;
     })();
     return flushing;
   }
