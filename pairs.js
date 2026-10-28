@@ -2,92 +2,92 @@ window.STUDY = "gl1";
 window.PAIRS = [
  {
   "id": "p01",
-  "person": "img/c21283ba.jpg",
-  "product": "img/fa66a76c.jpg",
+  "person": "img/c2bb43bf.jpg",
+  "product": "img/78e016a0.jpg",
   "options": [
-   "img/ee88da83.webp",
-   "img/f5ea48eb.webp"
+   "img/fd45cb62.webp",
+   "img/0ac32fb3.webp"
   ]
  },
  {
   "id": "p02",
-  "person": "img/7a638018.jpg",
-  "product": "img/2cd844f5.jpg",
+  "person": "img/0fb26484.jpg",
+  "product": "img/e3c6998e.jpg",
   "options": [
-   "img/10cc7cca.webp",
-   "img/2846f6b5.webp"
+   "img/a6e7bf6e.webp",
+   "img/716d97fc.webp"
   ]
  },
  {
   "id": "p03",
-  "person": "img/ef787d4e.jpg",
-  "product": "img/a2d3cd75.jpg",
+  "person": "img/de7ad603.jpg",
+  "product": "img/ea1c8dbf.jpg",
   "options": [
-   "img/aaf127ab.webp",
-   "img/76546476.webp"
+   "img/6530758d.webp",
+   "img/ab91f604.webp"
   ]
  },
  {
   "id": "p04",
-  "person": "img/e290b429.jpg",
-  "product": "img/07e7a665.jpg",
+  "person": "img/e6fe2ea4.jpg",
+  "product": "img/97ec8502.jpg",
   "options": [
-   "img/64722dcf.webp",
-   "img/abc834d5.webp"
+   "img/581dd806.webp",
+   "img/0e93a94f.webp"
   ]
  },
  {
   "id": "p05",
-  "person": "img/84051a2d.jpg",
-  "product": "img/9b4c3f27.jpg",
+  "person": "img/fcc4c4a3.jpg",
+  "product": "img/23899042.jpg",
   "options": [
-   "img/6dcc175d.webp",
-   "img/51b0ab9e.webp"
+   "img/018c7cdd.webp",
+   "img/2164790d.webp"
   ]
  },
  {
   "id": "p06",
-  "person": "img/134a4b1e.jpg",
-  "product": "img/ba04e2f5.jpg",
+  "person": "img/13a27ff1.jpg",
+  "product": "img/8e65c713.jpg",
   "options": [
-   "img/439b2b52.webp",
-   "img/b1f03cdf.webp"
+   "img/d977a4c6.webp",
+   "img/d63b27e2.webp"
   ]
  },
  {
   "id": "p07",
-  "person": "img/82eace1a.jpg",
-  "product": "img/5a2fe15a.jpg",
+  "person": "img/3fbf97ad.jpg",
+  "product": "img/be768eab.jpg",
   "options": [
-   "img/1d5d1be8.webp",
-   "img/3fd3ddc3.webp"
+   "img/655d3485.webp",
+   "img/d1250be6.webp"
   ]
  },
  {
   "id": "p08",
-  "person": "img/93dc26b0.jpg",
-  "product": "img/0fc6d2eb.jpg",
+  "person": "img/b66a6ad8.jpg",
+  "product": "img/2a69c5b9.jpg",
   "options": [
-   "img/e9090fab.webp",
-   "img/abc07698.webp"
+   "img/135e07b8.webp",
+   "img/c057cb21.webp"
   ]
  },
  {
   "id": "p09",
-  "person": "img/39384a8e.jpg",
-  "product": "img/d4d27116.jpg",
+  "person": "img/98a6291e.jpg",
+  "product": "img/0abc23aa.jpg",
   "options": [
-   "img/3016c701.webp",
-   "img/34166a94.webp"
+   "img/9f73d5e3.webp",
+   "img/efb2a31c.webp"
   ]
  },
  {
   "id": "p10",
-  "person": "img/bb33b135.jpg",
-  "product": "img/2d4b8a56.jpg",
+  "person": "img/fe21fec2.jpg",
+  "product": "img/639b668f.jpg",
   "options": [
-   "img/fb454a23.webp",
-   "img/282410cb.webp"
+   "img/818d4d2d.webp",
+   "img/6be57311.webp"
   ]
  }
 ];
