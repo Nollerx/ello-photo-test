@@ -161,7 +161,7 @@
         <button class="chip" data-v="45+">45+</button>
       </div>
     </div>
-    <p class="fine">This test is run by Ello. In each look, one try-on is from Ello and one is from another AI try-on tool. They're shuffled, so you won't know which is which. Every try-on is the first one each tool made for that person and product; nothing was retried or retouched. It's anonymous: we save only your picks and the two optional answers above.</p>
+    <p class="fine">This test is run by Ello. In each look, one try-on is from Ello and one is from another AI try-on tool. They're shuffled, so you won't know which is which. Every try-on is the first one each tool made for that person and product; nothing was retried or retouched. It's anonymous: we save your picks, the two optional answers above, and scrambled codes for your network and device so each person counts once. We never store your IP address or your name.</p>
     <button id="start" class="btn">Start the test</button>
   </section>
 
@@ -267,7 +267,19 @@
   $("test-banner").hidden = live;
   $("n-pairs").textContent = PAIRS.length + 1;
   if (!PAIRS.length) { $("intro").hidden = true; $("not-ready").hidden = false; return; }
-  if (store(K_DONE) === "1" && !params.has("again")) { $("intro").hidden = true; $("already").hidden = false; return; }
+  if (store(K_DONE) === "1") { $("intro").hidden = true; $("already").hidden = false; return; }
+
+  // Scrambled device code (a hash of browser and screen traits, never the traits themselves).
+  // With the network code the database adds, it lets the analysis count each person once.
+  var deviceHint = null;
+  (async function () {
+    try {
+      var traits = [navigator.userAgent, screen.width + "x" + screen.height, window.devicePixelRatio,
+                    Intl.DateTimeFormat().resolvedOptions().timeZone, navigator.language, navigator.platform].join("|");
+      var buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(traits));
+      deviceHint = Array.from(new Uint8Array(buf)).slice(0, 16).map(function (b) { return b.toString(16).padStart(2, "0"); }).join("");
+    } catch (e) { deviceHint = null; }
+  })();
 
   var profile = { shops: null, age: null };
   document.querySelectorAll(".chips").forEach(function (group) {
@@ -374,7 +386,7 @@
       left_img: stem(cur.L), right_img: stem(cur.R),
       real_pick: stem(cur[pick]), overall_pick: null,
       ms_real: pickMs, ms_overall: null,
-      age: profile.age, shops: profile.shops, device: device
+      age: profile.age, shops: profile.shops, device: device, device_hint: deviceHint
     });
     i++;
     if (i < order.length) { showPair(); return; }
