@@ -69,7 +69,6 @@
   .ask { text-align: center; margin: 4px 0 12px; }
   .ask h2 { font: 600 22px/1.25 var(--serif); margin: 0 0 4px; text-wrap: balance; }
   .ask .how { font-size: 14px; color: var(--muted); }
-  .repeat-note { display: inline-block; margin: 0 0 8px; padding: 6px 12px; border-radius: 999px; background: var(--blue-50); color: var(--blue-700); font-size: 13px; font-weight: 600; }
 
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .tile { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
@@ -140,7 +139,7 @@
     <h1>Which try-on is the most <em>accurate</em>?</h1>
     <p class="lede">AI can now show how clothes look on a real person. Help us find out which tool does it best. It takes about 2 minutes.</p>
     <ol class="steps">
-      <li><div class="n">1</div><div><b>You'll see <span id="n-pairs">11</span> looks</b><span>Each one shows a real person's original photo, a piece of clothing, and two AI try-ons of that person wearing it. One look comes back a second time on purpose, so just pick again.</span></div></li>
+      <li><div class="n">1</div><div><b>You'll see <span id="n-pairs">11</span> looks</b><span>Each one shows a real person's original photo, a piece of clothing, and two AI try-ons of that person wearing it.</span></div></li>
       <li><div class="n">2</div><div><b>Pick the more accurate try-on</b><span>The one that looks most like a real photo of that person wearing that exact piece. One tap per look.</span></div></li>
       <li><div class="n">3</div><div><b>Zoom in to check</b><span>Compare the face, the rest of their outfit, and details like prints and texture.</span></div></li>
     </ol>
@@ -170,7 +169,6 @@
   <section id="pair" hidden>
     <div class="progress"><div class="bar"><i id="bar"></i></div><div class="count" id="count">Look 1 of 11</div></div>
     <div class="ask">
-      <p class="repeat-note" id="repeat-note" hidden>You've seen this look before. We swapped the sides, so just pick again.</p>
       <h2>Which try-on looks most like a real photo of <em>this person</em> wearing <em>this product</em>?</h2>
       <div class="how">Compare both try-ons with the original photo and the product. Tap the better one.</div>
     </div>
@@ -358,7 +356,6 @@
     shownFlip[p.id] = flip;
     cur = { p: p, L: flip ? p.options[1] : p.options[0], R: flip ? p.options[0] : p.options[1] };
     pick = null; pickMs = null;
-    $("repeat-note").hidden = !p.repeatOf;
     $("in-person").src = p.person; $("in-product").src = p.product;
     $("img-L").src = cur.L; $("img-R").src = cur.R;
     paint();
