@@ -93,6 +93,11 @@
   .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 
   .next-wrap { max-width: 420px; margin: 16px auto 0; }
+  @media (max-width: 899px) {
+    .next-wrap { position: sticky; bottom: 0; z-index: 5; max-width: none; margin: 12px -16px 0; padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+                 background: linear-gradient(to top, var(--stone-50) 75%, rgba(248,247,244,0)); }
+    .next-hint { margin-top: 6px; }
+  }
   .next-hint { text-align: center; font-size: 13px; color: var(--muted); margin: 8px 0 0; }
 
   @media (min-width: 900px) {
