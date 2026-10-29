@@ -354,7 +354,7 @@
   function choose(side) {
     pick = side;
     pickMs = Math.round(performance.now() - shownAt);
-    seen[i].pick = side;
+    seen[i].pick = side; seen[i].ms = pickMs;
     paint();
   }
 
@@ -363,10 +363,10 @@
     if (!seen[i]) {
       var flip = p.repeatOf ? !shownFlip[p.repeatOf] : rand(2) === 1;
       shownFlip[p.id] = flip;
-      seen[i] = { L: flip ? p.options[1] : p.options[0], R: flip ? p.options[0] : p.options[1], pick: null, sent: null };
+      seen[i] = { L: flip ? p.options[1] : p.options[0], R: flip ? p.options[0] : p.options[1], pick: null, ms: null, sent: null };
     }
     cur = { p: p, L: seen[i].L, R: seen[i].R };
-    pick = seen[i].pick; pickMs = null;
+    pick = seen[i].pick; pickMs = seen[i].ms;
     $("in-person").src = p.person; $("in-product").src = p.product;
     $("img-L").src = cur.L; $("img-R").src = cur.R;
     paint();
