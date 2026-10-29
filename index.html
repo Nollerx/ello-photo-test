@@ -99,6 +99,9 @@
     .next-hint { margin-top: 6px; }
   }
   .next-hint { text-align: center; font-size: 13px; color: var(--muted); margin: 8px 0 0; }
+  .next-row { display: flex; gap: 10px; }
+  .next-row .btn { flex: 1; }
+  .next-row .back { flex: none; width: auto; padding: 15px 18px; }
 
   @media (min-width: 900px) {
     h1 { font-size: 44px; }
@@ -198,7 +201,10 @@
       </div>
     </div>
     <div class="next-wrap">
-      <button id="next" class="btn" disabled>Next look</button>
+      <div class="next-row">
+        <button id="back" class="btn ghost back" hidden>← Back</button>
+        <button id="next" class="btn" disabled>Next look</button>
+      </div>
       <p class="next-hint" id="next-hint">Pick a try-on to continue. You can change your pick before you tap Next.</p>
     </div>
   </section>
@@ -328,7 +334,8 @@
   var order = shuffle(PAIRS);
   var again = order[rand(Math.max(1, Math.floor(order.length / 2)))];
   order.push({ id: again.id + "r", repeatOf: again.id, person: again.person, product: again.product, options: again.options });
-  var shownFlip = {};
+  // Each look keeps its sides and pick once shown, so Back shows it exactly as it was.
+  var shownFlip = {}, seen = [];
   var i = 0, cur = null, shownAt = 0, pick = null, pickMs = null;
 
   function preload(p) { if (!p) return; [p.person, p.product].concat(p.options).forEach(function (u) { var im = new Image(); im.src = u; }); }
@@ -347,18 +354,23 @@
   function choose(side) {
     pick = side;
     pickMs = Math.round(performance.now() - shownAt);
+    seen[i].pick = side;
     paint();
   }
 
   function showPair() {
     var p = order[i];
-    var flip = p.repeatOf ? !shownFlip[p.repeatOf] : rand(2) === 1;
-    shownFlip[p.id] = flip;
-    cur = { p: p, L: flip ? p.options[1] : p.options[0], R: flip ? p.options[0] : p.options[1] };
-    pick = null; pickMs = null;
+    if (!seen[i]) {
+      var flip = p.repeatOf ? !shownFlip[p.repeatOf] : rand(2) === 1;
+      shownFlip[p.id] = flip;
+      seen[i] = { L: flip ? p.options[1] : p.options[0], R: flip ? p.options[0] : p.options[1], pick: null, sent: null };
+    }
+    cur = { p: p, L: seen[i].L, R: seen[i].R };
+    pick = seen[i].pick; pickMs = null;
     $("in-person").src = p.person; $("in-product").src = p.product;
     $("img-L").src = cur.L; $("img-R").src = cur.R;
     paint();
+    $("back").hidden = i === 0;
     $("next").textContent = i === order.length - 1 ? "Finish" : "Next look";
     $("count").textContent = "Look " + (i + 1) + " of " + order.length;
     $("bar").style.width = (i / order.length * 100) + "%";
@@ -381,19 +393,29 @@
 
   $("next").addEventListener("click", function () {
     if (!pick) return;
-    send({
-      study: STUDY, rater: rater, session: session, src: src, pair: cur.p.id, seq: i,
-      left_img: stem(cur.L), right_img: stem(cur.R),
-      real_pick: stem(cur[pick]), overall_pick: null,
-      ms_real: pickMs, ms_overall: null,
-      age: profile.age, shops: profile.shops, device: device, device_hint: deviceHint
-    });
+    var picked = stem(cur[pick]);
+    if (seen[i].sent !== picked) { // a look revisited with Back is saved again only if the pick changed
+      send({
+        study: STUDY, rater: rater, session: session, src: src, pair: cur.p.id, seq: i,
+        left_img: stem(cur.L), right_img: stem(cur.R),
+        real_pick: picked, overall_pick: null,
+        ms_real: pickMs, ms_overall: null,
+        age: profile.age, shops: profile.shops, device: device, device_hint: deviceHint
+      });
+      seen[i].sent = picked;
+    }
     i++;
     if (i < order.length) { showPair(); return; }
     $("bar").style.width = "100%";
     $("pair").hidden = true; $("done").hidden = false;
     store(K_DONE, "1");
     finishSave();
+  });
+
+  $("back").addEventListener("click", function () {
+    if (i === 0) return;
+    i--;
+    showPair();
   });
 
   function finishSave() {
